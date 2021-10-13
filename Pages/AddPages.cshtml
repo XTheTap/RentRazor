@@ -6,22 +6,22 @@
 <div>
     <h1>Добавить недвижимость</h1>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="AddressOfProperty.Adress" class="control-label"></label>
-            <input asp-for="AddressOfProperty.Adress" class="form-control" />
+            <input asp-for="AddressOfProperty.Adress" class="form-control" required/>
             <span asp-validation-for="AddressOfProperty.Adress" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="AddressOfProperty.FloorNumber" class="control-label"></label>
-            <input asp-for="AddressOfProperty.FloorNumber" class="form-control" />
+            <input asp-for="AddressOfProperty.FloorNumber" min=1 max=250 class="form-control" required/>
             <span asp-validation-for="AddressOfProperty.FloorNumber" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="AddressOfProperty.ApartmentNumber" class="control-label"></label>
-            <input asp-for="AddressOfProperty.ApartmentNumber" class="form-control" />
+            <input asp-for="AddressOfProperty.ApartmentNumber" min=1 max=20 class="form-control" required/>
             <span asp-validation-for="AddressOfProperty.ApartmentNumber" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -30,25 +30,30 @@
         </div>
         <div class="form-group">
             <label asp-for="Property.TelephoneNumber" class="control-label"></label>
-            <input asp-for="Property.TelephoneNumber" class="form-control" />
+            <input asp-for="Property.TelephoneNumber" class="form-control" required/>
             <span asp-validation-for="Property.TelephoneNumber" class="text-danger"></span>
         </div>
-
-        <div class="row py-4">
-            <div class="col-lg-6 mx-auto">
-
-                <!-- Upload image input-->
-                <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                    <input asp-for="ImagePath" id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
-                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                    <div class="input-group-append">
-                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                    </div>
-                </div>
-
-                <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
-             </div>
+        <div class="form-group row">
+            <label asp-for="Photo" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <div class="custom-file">
+                    <input asp-for="Photo" class="custom-file-input form-control" required/>
+                    <label class=custom-file-label>Click here to load image</label>
+                </div>  
+            </div>
         </div>
+
+        @section Scripts
+        {
+            <script>
+                $(document).ready(function(){
+                    $('.custom-file-input').on("change", function() {
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).next('.custom-file-label').html(fileName);
+                    });
+                });
+            </script>
+        }
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Добавить</button>

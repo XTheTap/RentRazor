@@ -6,11 +6,18 @@
 
 <div class=text-justify>
     <h2>
-        @Model.type на @Model.address
+        @Model.type на @Model.address.Adress
     </h2>
 
-    <p class="text-success">Номер телефона: @Model.property.TelephoneNumber</p>
+    <p class="text-success">Номер телефона: <a href="tel:@Model.property.TelephoneNumber">@Model.property.TelephoneNumber</a></p>
 
-    <img src="" alt="Картинки нет, либо она загружается /"/>
+    <img src="" alt="Ошибка картинки"/>
+
+    <div>
+        @foreach(string tag in Model.Tags)
+        {
+            <p>@tag</p>
+        }
+    </div>
 
 </div>

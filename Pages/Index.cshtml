@@ -15,24 +15,31 @@
 
 <hr />
 
-<div>
-    @foreach(var property in Model.rentProperty.Properties)
+<div class="row">
+    @if(!Model.rentProperty.Properties.Any())
     {
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="..." alt="Фотографии не обнаружено">
-            <div class="card-body">
-            <h5 class="card-title">@Model.rentProperty.AddressOfProperties.Find(property.Adress).Adress</h5>
-            <div class="card-text d-flex justify-content-between">
-                @foreach(var tag in Model.rentProperty.TagMerges.Where(x => x.IdOfProperty == property.Id).OrderBy(x => x))
-                {   
-                    var temptag = Model.rentProperty.TagsOfProperties.Find(tag.IdOfTag);
-                    <p class="text-warning">
-                        @temptag.TagName
-                    </p>
-                }
+        <h3 class=text-center>Ничего не найдено, хм / Может, попробовать добавить?</h3>
+    }
+    else
+    {
+        @foreach(var property in Model.rentProperty.Properties)
+        {
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Ошибка картинки">
+                <div class="card-body">
+                <h5 class="card-title">@Model.rentProperty.PropertyTypes.Find(property.PropertyType).Adress</h5>
+                <div class="card-text d-flex justify-content-between">
+                    @foreach(var tag in Model.rentProperty.TagMerges.Where(x => x.IdOfProperty == property.Id).OrderBy(x => x))
+                    {   
+                        var temptag = Model.rentProperty.TagsOfProperties.Find(tag.IdOfTag);
+                        <p class="text-warning">
+                            @temptag.TagName
+                        </p>
+                    }
+                </div>
+                    <a asp-page="/RentCard" asp-route-id="@property.Id" class="btn btn-primary">Показать</a>
+                </div> 
             </div>
-                <a asp-page="/RentCard" asp-route-id="@property.Id" class="btn btn-primary">Показать</a>
-            </div> 
-        </div>
+        }
     }
 </div>

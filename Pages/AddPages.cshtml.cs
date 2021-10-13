@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RentRazor.DbModel;
 using System.IO;
 using System.Threading.Tasks;
+using System.Web;
+using System.Drawing;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel;
 
 namespace RentRazor.Pages
 {
@@ -15,8 +19,11 @@ namespace RentRazor.Pages
         [BindProperty]
         public Property Property { get; set; }
 
+        [DisplayName("Фотография")]
         [BindProperty]
-        public string ImagePath { get; set; }
+        public IFormFile Photo { get; set; }
+
+        public PhotoOfPropert PhotoOfPropert {  get; set; }
 
         private readonly RentRazor.DbModel.RentPropertyContext _context;
 
@@ -39,6 +46,17 @@ namespace RentRazor.Pages
                 return Page();
             }
 
+            byte[] fileBytes;
+            using (var ms = new MemoryStream())
+            {
+                Photo.CopyTo(ms);
+                fileBytes = ms.ToArray();   
+            }
+
+            PhotoOfPropert.Adress = Property.Id;
+            PhotoOfPropert.Photo = fileBytes;
+
+            _context.PhotoOfProperts.Add(PhotoOfPropert);
             _context.AddressOfProperties.Add(AddressOfProperty);
             _context.Properties.Add(Property);
 
