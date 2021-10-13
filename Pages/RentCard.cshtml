@@ -1,0 +1,16 @@
+﻿@page
+@model RentRazor.Pages.RentCardModel
+@{
+    ViewData["Title"] = "Аренда";
+}
+
+<div class=text-justify>
+    <h2>
+        @Model.type на @Model.address
+    </h2>
+
+    <p class="text-success">Номер телефона: @Model.property.TelephoneNumber</p>
+
+    <img src="" alt="Картинки нет, либо она загружается /"/>
+
+</div>
