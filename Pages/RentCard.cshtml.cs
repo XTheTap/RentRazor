@@ -12,7 +12,7 @@ namespace RentRazor.Pages
         public AddressOfProperty address { get; set; }
         public IEnumerable<string> Tags { get; set; }
         public string type { get; set; }
-        public int? IdOfPhoto { get; set; }
+        public IEnumerable<int> IdOfPhoto { get; set; }
 
         private readonly RentPropertyContext rentProperty;
 
@@ -26,6 +26,7 @@ namespace RentRazor.Pages
             property = rentProperty.Properties.Find(id);
             address = rentProperty.AddressOfProperties.Find(property.Adress);
             type = rentProperty.PropertyTypes.Find(property.PropertyType).Adress;
+
 
 
             List<string> tags = new List<string>();

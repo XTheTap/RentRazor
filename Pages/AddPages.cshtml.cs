@@ -56,6 +56,10 @@ namespace RentRazor.Pages
             PhotoOfPropert.Photo = fileBytes;
 
             _context.AddressOfProperties.Add(AddressOfProperty);
+
+            await _context.SaveChangesAsync();
+
+            Property.Adress = AddressOfProperty.Id;
             _context.Properties.Add(Property);
 
             await _context.SaveChangesAsync();
