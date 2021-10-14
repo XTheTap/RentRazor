@@ -27,7 +27,7 @@ namespace RentRazor.Pages
             address = rentProperty.AddressOfProperties.Find(property.Adress);
             type = rentProperty.PropertyTypes.Find(property.PropertyType).Adress;
 
-
+            IdOfPhoto = rentProperty.PhotoOfProperts.Where(x => x.Adress == property.Id).Select(x => x.Id);
 
             List<string> tags = new List<string>();
 
