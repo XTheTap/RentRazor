@@ -9,17 +9,37 @@
         @Model.type на @Model.address.Adress
     </h2>
 
-    <p class="text-success">Номер телефона: <a href="tel:@Model.property.TelephoneNumber">@Model.property.TelephoneNumber</a></p
+    <p class="text-success">Номер телефона: <a href="tel:@Model.property.TelephoneNumber">@Model.property.TelephoneNumber</a></p>
 
-    @foreach(var image in Model.IdOfPhoto)
-    {
-        <img src="@Url.Content("~/Api/PhotoControll?id=" + image)"/>
-    }
+    <div class=card-deck>
+        @foreach(var image in Model.IdOfPhoto)
+        {
+            <div class=col-sm-6>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img" src="@Url.Content("~/Api/PhotoControll?id=" + image)"/>
+                </div>
+            </div>
+        }
+    </div>
+
+    <hr />
+
+    <h5>Количество комнат @Model.address.ApartmentNumber</h5>
+    <h5>Этаж @Model.address.FloorNumber</h5>
+
+    <hr />
+
+    <div>тут должна быть карта</div>
+
+    <hr />
 
     <div>
-        @foreach(string tag in Model.Tags)
+        @if (Model.Tags.Any())
         {
-            <p>@tag</p>
+            @foreach(string tag in Model.Tags)
+            {
+                <p class="tags">@tag</p>
+            }
         }
     </div>
 

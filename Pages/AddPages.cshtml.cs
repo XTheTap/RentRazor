@@ -8,6 +8,7 @@ using System.Web;
 using System.Drawing;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace RentRazor.Pages
 {
@@ -23,7 +24,11 @@ namespace RentRazor.Pages
         [BindProperty]
         public IFormFile Photo { get; set; }
 
-        public PhotoOfPropert PhotoOfPropert {  get; set; }
+        public List<TagsOfProperty> AddedTags { get; set; }
+
+        public readonly IEnumerable<TagsOfProperty> Tags;
+
+        public  PhotoOfPropert PhotoOfPropert { get; set; }
 
         private readonly RentPropertyContext _context;
 
@@ -31,15 +36,24 @@ namespace RentRazor.Pages
         {
             _context = context;
             PhotoOfPropert = new PhotoOfPropert();
+            AddedTags = new List<TagsOfProperty>();
+            Tags = context.TagsOfProperties;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
             ViewData["PropertyType"] = new SelectList(_context.PropertyTypes, "Id", "Adress");
             return Page();
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAddTag(int id)
+        {
+
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostMainAdd()
         {
             if (!ModelState.IsValid)
             {
@@ -71,7 +85,5 @@ namespace RentRazor.Pages
 
             return RedirectToPage("./Index");
         }
-
-
     }
 }

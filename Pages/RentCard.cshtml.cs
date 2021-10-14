@@ -14,6 +14,7 @@ namespace RentRazor.Pages
         public string type { get; set; }
         public IEnumerable<int> IdOfPhoto { get; set; }
 
+
         private readonly RentPropertyContext rentProperty;
 
         public RentCardModel(RentPropertyContext rentProperty)
