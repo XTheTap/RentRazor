@@ -19,19 +19,6 @@ namespace RentRazor.Pages
             this.rentProperty = rentProperty;
         }
 
-        public async Task<IActionResult> OnGet()
-        {
-            
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPostSearch(string searcher)
-        {
-            
-
-            return Page();
-        }
-
         public string GetPictureAdress(int id)
         {
             var tempCollection = rentProperty.PhotoOfProperts.Where(x => x.Adress == id);

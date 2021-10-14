@@ -24,23 +24,13 @@
 
     <hr />
 
-    <h5>Количество комнат @Model.address.ApartmentNumber</h5>
+    <h>Количество комнат @Model.address.ApartmentNumber</h>
     <h5>Этаж @Model.address.FloorNumber</h5>
 
     <hr />
 
-    <div>тут должна быть карта</div>
+    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7b7085671a768078197fdbe7c73a41c30c9ef0d750b8d9b60e2d1cba8eae215f&amp;source=constructor" width="500" height="400" frameborder="0"></iframe>
 
     <hr />
-
-    <div>
-        @if (Model.Tags.Any())
-        {
-            @foreach(string tag in Model.Tags)
-            {
-                <p class="tags">@tag</p>
-            }
-        }
-    </div>
 
 </div>

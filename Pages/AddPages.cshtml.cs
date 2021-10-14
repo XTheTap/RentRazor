@@ -24,10 +24,6 @@ namespace RentRazor.Pages
         [BindProperty]
         public IFormFile Photo { get; set; }
 
-        public List<TagsOfProperty> AddedTags { get; set; }
-
-        public readonly IEnumerable<TagsOfProperty> Tags;
-
         public  PhotoOfPropert PhotoOfPropert { get; set; }
 
         private readonly RentPropertyContext _context;
@@ -36,8 +32,6 @@ namespace RentRazor.Pages
         {
             _context = context;
             PhotoOfPropert = new PhotoOfPropert();
-            AddedTags = new List<TagsOfProperty>();
-            Tags = context.TagsOfProperties;
         }
 
         public async Task<IActionResult> OnGet()
@@ -46,14 +40,7 @@ namespace RentRazor.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddTag(int id)
-        {
-
-
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPostMainAdd()
+        public async Task<IActionResult> OnPost()
         {
             if (!ModelState.IsValid)
             {
