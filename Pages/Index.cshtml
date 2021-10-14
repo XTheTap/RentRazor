@@ -6,7 +6,7 @@
 
 <form method="post">
     <div class="input-group rounded">
-      <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+      <input type="search" class="form-control rounded" placeholder="Поиск по адресу" aria-label="Search" aria-describedby="search-addon" />
       <button asp-page-handler="Search" class="input-group-text border-0" id="search-addon">
         <i class="fas fa-search"></i>
       </button>
@@ -15,30 +15,32 @@
 
 <hr />
 
-<div class="row">
+<div class="card-deck">
     @if(!Model.rentProperty.Properties.Any())
     {
-        <h3 class=text-center>Ничего не найдено, хм / Может, попробовать добавить?</h3>
+        <h3 class=text-center>Ничего не найдено, хм / Может, попробовать добавить или изменить критерии поиска?</h3>
     }
     else
     {
         @foreach(var property in Model.rentProperty.Properties)
         {
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Ошибка картинки">
-                <div class="card-body">
-                <h5 class="card-title">@Model.rentProperty.PropertyTypes.Find(property.PropertyType).Adress</h5>
-                <div class="card-text d-flex justify-content-between">
-                    @foreach(var tag in Model.rentProperty.TagMerges.Where(x => x.IdOfProperty == property.Id).OrderBy(x => x))
-                    {   
-                        var temptag = Model.rentProperty.TagsOfProperties.Find(tag.IdOfTag);
-                        <p class="text-warning">
-                            @temptag.TagName
-                        </p>
-                    }
+            <div class="col-sm-6">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="@Url.Content(Model.GetPictureAdress(property.Id))" alt="Ошибка картинки">
+                    <div class="card-body">
+                    <h5 class="card-title">@Model.rentProperty.PropertyTypes.Find(property.PropertyType).Adress</h5>
+                    <div class="card-text d-flex justify-content-between">
+                        @foreach(var tag in Model.rentProperty.TagMerges.Where(x => x.IdOfProperty == property.Id).OrderBy(x => x))
+                        {   
+                            var temptag = Model.rentProperty.TagsOfProperties.Find(tag.IdOfTag);
+                            <p class="text-warning">
+                                @temptag.TagName
+                            </p>
+                        }
+                    </div>
+                        <a asp-page="/RentCard" asp-route-id="@property.Id" class="btn btn-primary">Показать</a>
+                    </div> 
                 </div>
-                    <a asp-page="/RentCard" asp-route-id="@property.Id" class="btn btn-primary">Показать</a>
-                </div> 
             </div>
         }
     }

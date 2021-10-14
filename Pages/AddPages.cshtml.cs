@@ -25,16 +25,16 @@ namespace RentRazor.Pages
 
         public PhotoOfPropert PhotoOfPropert {  get; set; }
 
-        private readonly RentRazor.DbModel.RentPropertyContext _context;
+        private readonly RentPropertyContext _context;
 
-        public AddPagesModel(RentRazor.DbModel.RentPropertyContext context)
+        public AddPagesModel(RentPropertyContext context)
         {
             _context = context;
+            PhotoOfPropert = new PhotoOfPropert();
         }
 
         public IActionResult OnGet()
         {
-
             ViewData["PropertyType"] = new SelectList(_context.PropertyTypes, "Id", "Adress");
             return Page();
         }
@@ -53,15 +53,17 @@ namespace RentRazor.Pages
                 fileBytes = ms.ToArray();   
             }
 
-            PhotoOfPropert.Adress = Property.Id;
             PhotoOfPropert.Photo = fileBytes;
 
-            _context.PhotoOfProperts.Add(PhotoOfPropert);
             _context.AddressOfProperties.Add(AddressOfProperty);
             _context.Properties.Add(Property);
 
             await _context.SaveChangesAsync();
 
+            PhotoOfPropert.Adress = Property.Id;
+            _context.PhotoOfProperts.Add(PhotoOfPropert);
+
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

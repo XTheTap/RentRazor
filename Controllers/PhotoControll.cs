@@ -7,7 +7,7 @@ namespace RentRazor.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PhotoControll : Controller
+    public class PhotoControll : ControllerBase
     {
         private readonly RentPropertyContext rentProperty;
 
@@ -16,7 +16,7 @@ namespace RentRazor.Controllers
             rentProperty = rend;
         }
 
-        [HttpGet("id")]
+        [HttpGet]
         [ProducesResponseType(404)]
         public async Task<IActionResult> Get(int id)
         {

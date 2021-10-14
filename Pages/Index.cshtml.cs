@@ -13,14 +13,32 @@ namespace RentRazor.Pages
     {
         public readonly RentPropertyContext rentProperty;
 
+
         public IndexModel(RentPropertyContext rentProperty)
         {
             this.rentProperty = rentProperty;
         }
 
+        public async Task<IActionResult> OnGet()
+        {
+            
+            return Page();
+        }
+
         public async Task<IActionResult> OnPostSearch(string searcher)
         {
+            
+
             return Page();
+        }
+
+        public string GetPictureAdress(int id)
+        {
+            var tempCollection = rentProperty.PhotoOfProperts.Where(x => x.Adress == id);
+            if (!tempCollection.Any())
+                return "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg";
+            
+            return $"~/Api/PhotoControll?id=" + tempCollection.First().Id;
         }
     }
 }

@@ -52,8 +52,13 @@ namespace RentRazor
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default", pattern: "api/{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            
         }
     }
 }
